@@ -41,6 +41,8 @@ class Game:
         pygame.display.update()
         pygame.display.flip()
         
+        
+        
 
     def draw_background(self):
         image_width = BG.get_width()
