@@ -22,6 +22,12 @@ class Dinosaur(Sprite):
         self.step = 0
         self.action = RUNNING_ACTION
         
+    def reset_rect(self, y_pos = None):
+        self.rect = self.image.get_rect()
+        self.rect.x = self.X_POS
+        self.rect.y = y_pos or self.Y_POS
+        
+        
               
     def update(self, user_input):
         if self.action == RUNNING_ACTION:  
@@ -44,9 +50,7 @@ class Dinosaur(Sprite):
             
     def run(self):
         self.image = RUNNING[0] if self.step < 5 else RUNNING[1]
-        self.rect = self.image.get_rect()
-        self.rect.y = self.Y_POS
-        self.rect.x = self.X_POS
+        self.reset_rect()
         self.step += 1
         
     def jump(self):
@@ -61,9 +65,7 @@ class Dinosaur(Sprite):
             
     def duck(self):
         self.image = DUCKING[0] if self.step < 5 else DUCKING[1]
-        self.rect = self.image.get_rect()
-        self.rect.y = self.Y_POS_DUCK
-        self.rect.x = self.X_POS
+        self.reset_rect(y_pos=self.Y_POS_DUCK)
         self.step += 1
         
     def draw(self, screen):
