@@ -7,3 +7,11 @@ class Cactus(Obstacle):
         super().__init__(images[cactus_type])
         self.rect.y = 330
         
+        
+        
+class CactusLarge(Obstacle):
+    def __init__(self, image):
+        cactus_type = randint(0, 2)
+        super().__init__(image[cactus_type])
+        self.rect.y = 310
+        
