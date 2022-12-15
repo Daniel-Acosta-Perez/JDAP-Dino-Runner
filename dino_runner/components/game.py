@@ -99,6 +99,7 @@ class Game:
                 self.executing = False
             elif (event.type == pygame.KEYDOWN) and (event.type != pygame.K_TAB):
                 self.score.points = 0
+                self.game_speed = 20
                 self.run()
             elif event.type == pygame.K_TAB:
                 self.death_count = 0

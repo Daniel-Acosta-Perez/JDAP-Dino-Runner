@@ -7,8 +7,8 @@ class Score:
         
     def update(self, game):
         self.points += 1
-        if self.points % 200 == 0:
-            game.game_speed += 2
+        if self.points % 100 == 0:
+            game.game_speed += 10
         
         
     def draw(self, screen):
