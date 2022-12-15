@@ -2,6 +2,7 @@ from random import randint
 import pygame
 from dino_runner.components.obstaculo.bird import Bird
 from dino_runner.components.obstaculo.cactus import Cactus, CactusLarge
+from dino_runner.components.score import Score
 from dino_runner.utils.constants import BIRD, LARGE_CACTUS, SMALL_CACTUS
 
 class ObstacleManager:
@@ -19,6 +20,7 @@ class ObstacleManager:
                 pygame.time.delay(500)
                 game.playing = False
                 game.death_count += 1
+                Score.points = 0
     
     def obstacle_use(self):
         self.NUMBER_RANDOM = randint(0, 2)
