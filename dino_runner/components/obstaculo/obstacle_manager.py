@@ -20,7 +20,6 @@ class ObstacleManager:
                 pygame.time.delay(500)
                 game.playing = False
                 game.death_count += 1
-                Score.points = 0
     
     def obstacle_use(self):
         self.NUMBER_RANDOM = randint(0, 2)

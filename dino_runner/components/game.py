@@ -1,9 +1,12 @@
 import pygame
+from dino_runner.components.button import Button
 from dino_runner.components.cloud import Cloud
 from dino_runner.components.dino import Dinosaur
 from dino_runner.components.obstaculo.obstacle_manager import ObstacleManager
 from dino_runner.components.score import Score
-from dino_runner.utils.constants import BG, DINO_START, FONT_STYLE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.utils.constants import (BG, BUTTON_RESTART, DINO_START, 
+                                         FONT_STYLE, ICON, SCREEN_HEIGHT, 
+                                         SCREEN_WIDTH, TITLE, FPS)
 
 class Game:
     def __init__(self):
@@ -23,6 +26,7 @@ class Game:
         self.score = Score()
         self.cloud = Cloud() #! Revisar
         self.death_count = 0 
+        self.button = Button()
         self.executing = False
         
     def execute(self):
@@ -46,7 +50,7 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
-                self.executing = False
+                self.executing = False           
 
     def update(self):
         user_input = pygame.key.get_pressed()
@@ -59,10 +63,10 @@ class Game:
         self.clock.tick(FPS)
         self.screen.fill((255, 255, 255))
         self.draw_background()
+        self.cloud.draw(self.screen) #! Revisar
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.score.draw(self.screen)
-        self.cloud.draw(self.screen) #! Revisar
         pygame.display.update()
         pygame.display.flip()
         
@@ -76,18 +80,19 @@ class Game:
         self.x_pos_bg -= self.game_speed
 
     def show_menu(self):
-        self.screen.fill((255, 215, 230)) #? Modificar color a gusto
+        self.screen.fill((255, 250, 250)) #? Modificar color a gusto
         half_screen_width = SCREEN_WIDTH // 2 #? Asignamos la mitad de la pantalla para los parametros de la funcion center abajo
         half_screen_height = SCREEN_HEIGHT // 2
         
         if self.death_count == 0:
+            self.screen.blit(DINO_START, (half_screen_width - 40, half_screen_height - 140))        
             self.print_message("Press any key to start.", half_screen_width, half_screen_height)
         elif self.death_count > 0:
-            self.print_message("Press any key to start.", half_screen_width, half_screen_height)
+            self.button.draw(self.screen) #! Revisar uso del draw
+            #self.screen.blit(BUTTON_RESTART,(half_screen_width - 40, half_screen_height - 120));
+            self.print_message("Press any key to continue.", half_screen_width, half_screen_height)
             self.print_message(f"Your score is: {self.score.points}", half_screen_width, half_screen_height + 40 )
-            self.print_message(f"Times die: {self.death_count}",half_screen_width , half_screen_height + 80)
-            
-        self.screen.blit(DINO_START, (half_screen_width - 40, half_screen_height - 140))        
+            self.print_message(f"Deaths: {self.death_count}",half_screen_width , half_screen_height + 80)    
         
         pygame.display.update()        
         
@@ -97,18 +102,29 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.executing = False
-            elif (event.type == pygame.KEYDOWN) and (event.type != pygame.K_TAB):
+            elif event.type == pygame.KEYDOWN:
                 self.score.points = 0
                 self.game_speed = 20
                 self.run()
-            elif event.type == pygame.K_TAB:
-                self.death_count = 0
-                self.run()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self.check_button(mouse_pos)
 
+#? Metodos nuevos 
     def print_message(self, frase, x_pos_message, y_pos_message):
         font = pygame.font.Font(FONT_STYLE, 30)
         message = font.render(frase, True, (0, 0, 0))
         message_rect = message.get_rect()
         message_rect.center = (x_pos_message, y_pos_message)
         self.screen.blit(message, message_rect)        
+        
+    def check_button(self, mouse_pos):
+        if self.button.rect.collidepoint(mouse_pos):
+            self.reset_value()
+            self.run()
+
+    def reset_value(self):
+        self.death_count = 0
+        self.score.points = 0
+        self.game_speed = 20
         

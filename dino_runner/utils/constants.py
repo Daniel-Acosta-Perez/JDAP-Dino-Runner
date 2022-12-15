@@ -23,6 +23,8 @@ RUNNING_SHIELD = [
 
 DINO_START = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoStart.png"))
 
+DINO_GIF = pygame.image.load(os.path.join(IMG_DIR, "Other/Chrome Dino.gif"))
+
 RUNNING_HAMMER = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Hammer.png")),
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2.png")),
@@ -74,4 +76,6 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 
 FONT_STYLE = 'freesansbold.ttf'
+
+BUTTON_RESTART = pygame.image.load(os.path.join(IMG_DIR, "Other/Reset.png"))
 
