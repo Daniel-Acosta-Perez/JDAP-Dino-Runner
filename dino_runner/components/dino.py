@@ -26,8 +26,6 @@ class Dinosaur(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.X_POS
         self.rect.y = y_pos or self.Y_POS
-        
-        
               
     def update(self, user_input):
         if self.action == RUNNING_ACTION:  
