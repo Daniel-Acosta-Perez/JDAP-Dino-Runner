@@ -1,12 +1,10 @@
-from dino_runner.utils.constants import BUTTON_RESTART, SCREEN_HEIGHT, SCREEN_WIDTH
+from dino_runner.utils.constants import (BUTTON_RESTART, HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH)
 
 
 class Button:
-    half_screen_width = SCREEN_WIDTH // 2 
-    half_screen_height = SCREEN_HEIGHT // 2
-    
-    X_POS_BUTTON = half_screen_width - 40
-    Y_POS_BUTTON = half_screen_height - 120
+
+    X_POS_BUTTON = HALF_SCREEN_WIDTH - 40
+    Y_POS_BUTTON = HALF_SCREEN_HEIGHT - 120
     
     def __init__(self):
         self.image = BUTTON_RESTART

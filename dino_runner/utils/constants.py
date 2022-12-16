@@ -6,8 +6,11 @@ TITLE = "Chrome Dino Runner"
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 FPS = 30
-IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
+INICIAL_GAME_VELOCITY = 20
+HALF_SCREEN_WIDTH = SCREEN_WIDTH // 2
+HALF_SCREEN_HEIGHT = SCREEN_HEIGHT // 2
 
+IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 # Assets Constants
 ICON = pygame.image.load(os.path.join(IMG_DIR, "DinoWallpaper.png"))
 
@@ -22,13 +25,11 @@ RUNNING_SHIELD = [
 ]
 
 DINO_START = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoStart.png"))
+DINO_DEAD = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDead.png"))
+
 
 DINO_GIF = pygame.image.load(os.path.join(IMG_DIR, "Other/Chrome Dino.gif"))
 
-RUNNING_HAMMER = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Hammer.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2.png")),
-]
 
 JUMPING = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoJump.png"))
 JUMPING_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoJumpShield.png"))
@@ -42,6 +43,11 @@ DUCKING = [
 DUCKING_SHIELD = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Shield.png")),
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2.png")),
+]
+
+RUNNING_HAMMER = [
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Hammer.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2.png")),
 ]
 
 DUCKING_HAMMER = [
@@ -74,6 +80,8 @@ BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 DEFAULT_TYPE = "default"
+SHIELD_TYPE = "shield"
+HAMMER_TYPE = "hammer"
 
 FONT_STYLE = 'freesansbold.ttf'
 

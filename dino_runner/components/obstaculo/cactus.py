@@ -1,6 +1,5 @@
 from random import randint
 from dino_runner.components.obstaculo.obstacle import Obstacle
-# from dino_runner.utils.constants import BIRD
 
 class Cactus(Obstacle):
     def __init__(self, images):
