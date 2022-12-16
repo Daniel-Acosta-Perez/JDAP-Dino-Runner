@@ -5,8 +5,8 @@ from dino_runner.components.dino import Dinosaur
 from dino_runner.components.obstaculo.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.powerUpManager import PowerUpManager
 from dino_runner.components.score import Score
-from dino_runner.utils.constants import (BG, DINO_START, HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH, 
-                                         ICON, INICIAL_GAME_VELOCITY, SCREEN_HEIGHT, 
+from dino_runner.utils.constants import (BG, DINO_START, GAME_OVER, HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH, HAMMER_TYPE, 
+                                         ICON, INICIAL_GAME_VELOCITY, LIFES, SCREEN_HEIGHT, 
                                          SCREEN_WIDTH, SHIELD_TYPE, TITLE, FPS)
 from dino_runner.utils.text_draw import text_draw
 
@@ -73,6 +73,7 @@ class Game:
         self.cloud.draw(self.screen) 
         self.player.draw(self.screen)
         self.player.draw_active_power_up(self.screen)
+        self.player.draw_life(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
         self.score.draw(self.screen)
@@ -90,21 +91,18 @@ class Game:
         self.x_pos_bg -= self.game_speed
 
     def show_menu(self):
-        self.screen.fill((255, 250, 250)) 
+        self.screen.fill((255, 248, 220)) 
         
-        if self.death_count == 0:
+        if self.player.lifes > 0:
             self.screen.blit(DINO_START, (HALF_SCREEN_WIDTH - 40, HALF_SCREEN_HEIGHT - 140))        
-            text_draw("Press any key to start.",self.screen)
-            # self.print_message("Press any key to start.", HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT)
-        elif self.death_count > 0:
+            text_draw("Press any key to start.",self.screen, pos_y_center= HALF_SCREEN_HEIGHT + 50, font_size=40)
+            text_draw(f"Left lifes: : {self.player.lifes}", self.screen, font_size = 20, pos_y_center = HALF_SCREEN_HEIGHT + 80)
+        elif self.player.lifes < 1:
+            self.screen.blit(GAME_OVER, (HALF_SCREEN_WIDTH - 190, HALF_SCREEN_HEIGHT - 200))
             self.button.draw(self.screen) 
-            text_draw("Press any key to continue.", self.screen)
-            #self.print_message("Press any key to continue.", HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT)
-            text_draw(f"Your score is: {self.score.points}", self.screen, font_size = 25, pos_y_center = HALF_SCREEN_HEIGHT + 40)
-            #self.print_message(f"Your score is: {self.score.points}", HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT + 40 )
-            text_draw(f"Deaths: {self.death_count}", self.screen, font_size = 20, pos_y_center = HALF_SCREEN_HEIGHT + 80)
-            #self.print_message(f"Deaths: {self.death_count}",HALF_SCREEN_WIDTH , HALF_SCREEN_HEIGHT + 80)    
-        
+            text_draw("Press any key to continue.", self.screen, pos_y_center=HALF_SCREEN_HEIGHT-60)
+            text_draw(f"Your score is: {self.score.points}", self.screen, font_size = 25, pos_y_center = HALF_SCREEN_HEIGHT + 20)
+            
         pygame.display.update()        
         
         self.handle_menu_events()
@@ -113,9 +111,11 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.executing = False
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN and self.player.lifes > 0:
                 self.score.reset_score()
                 self.game_speed = INICIAL_GAME_VELOCITY
+                self.obstacle_manager.reset_obstacles()
+                self.power_up_manager.reset_power_ups()
                 self.run()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
@@ -129,18 +129,22 @@ class Game:
             self.run()
 
     def reset_game(self):
-        self.death_count = 0
+        self.player.lifes = LIFES
         self.game_speed = INICIAL_GAME_VELOCITY
         self.obstacle_manager.reset_obstacles()
         self.score.reset_score()
+        self.power_up_manager.reset_power_ups()
         
     def on_death(self):
-        has_shield = self.player.type == SHIELD_TYPE
+        has_shield = (self.player.type == SHIELD_TYPE) or (self.player.type == HAMMER_TYPE)
         if not has_shield:
             self.player.on_dino_dead()
             self.draw()
-            self.death_count += 1
+            self.player.lifes -= 1
             self.playing = False
-            
+
         return not has_shield
+
         
+    def hammer_colision(self):
+        pass

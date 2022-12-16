@@ -4,7 +4,7 @@ from dino_runner.utils.constants import (BUTTON_RESTART, HALF_SCREEN_HEIGHT, HAL
 class Button:
 
     X_POS_BUTTON = HALF_SCREEN_WIDTH - 40
-    Y_POS_BUTTON = HALF_SCREEN_HEIGHT - 120
+    Y_POS_BUTTON = HALF_SCREEN_HEIGHT + 170
     
     def __init__(self):
         self.image = BUTTON_RESTART

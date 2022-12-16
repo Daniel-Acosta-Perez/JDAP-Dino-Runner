@@ -2,8 +2,9 @@ from random import randint
 import pygame
 from dino_runner.components.obstaculo.bird import Bird
 from dino_runner.components.obstaculo.cactus import Cactus, CactusLarge
+
 from dino_runner.components.score import Score
-from dino_runner.utils.constants import BIRD, DINO_DEAD, LARGE_CACTUS, SMALL_CACTUS
+from dino_runner.utils.constants import BIRD, HAMMER_TYPE, LARGE_CACTUS, SMALL_CACTUS
 
 class ObstacleManager:
     
@@ -35,4 +36,6 @@ class ObstacleManager:
         
     def reset_obstacles(self):
         self.obstacles = []
+        
+    
     

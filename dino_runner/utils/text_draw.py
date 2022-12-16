@@ -4,7 +4,7 @@ from dino_runner.utils.constants import HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH
 
 FONT_COLOR = (0, 0, 0)
 FONT_SIZE = 30
-FONT_STYLE = 'freesansbold.ttf'
+FONT_STYLE = "dino_runner/utils/Fonts/Fixedsys500c.ttf"
 
 
 def text_draw(message, screen, 

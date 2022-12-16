@@ -1,5 +1,7 @@
 import pygame
 import os
+pygame.init()
+pygame.mixer.init()
 
 # Global Constants
 TITLE = "Chrome Dino Runner"
@@ -7,6 +9,8 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 FPS = 30
 INICIAL_GAME_VELOCITY = 20
+LIFES = 3
+
 HALF_SCREEN_WIDTH = SCREEN_WIDTH // 2
 HALF_SCREEN_HEIGHT = SCREEN_HEIGHT // 2
 
@@ -34,6 +38,7 @@ DINO_GIF = pygame.image.load(os.path.join(IMG_DIR, "Other/Chrome Dino.gif"))
 JUMPING = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoJump.png"))
 JUMPING_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoJumpShield.png"))
 JUMPING_HAMMER = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoJumpHammer.png"))
+GAME_OVER = pygame.image.load(os.path.join(IMG_DIR, "Other/GameOver.png"))
 
 DUCKING = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1.png")),
@@ -82,8 +87,18 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
 HAMMER_TYPE = "hammer"
+HEART_TYPE = 'heart'
 
-FONT_STYLE = 'freesansbold.ttf'
+FONT_STYLE = "dino_runner/utils/Fonts/Fixedsys500c.ttf"
 
 BUTTON_RESTART = pygame.image.load(os.path.join(IMG_DIR, "Other/Reset.png"))
 
+
+
+SOUND_DEAD = pygame.mixer.Sound(os.path.join(IMG_DIR, "sonds/resources_music_death.wav"))
+
+SOUND_POWERUP = pygame.mixer.Sound(os.path.join(IMG_DIR,"sonds/powerup.ogg"))
+
+SOUND_JUMP = pygame.mixer.Sound(os.path.join(IMG_DIR,"sonds/big_jump.ogg"))
+
+VOLUME = 0.1
