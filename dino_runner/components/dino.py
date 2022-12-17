@@ -7,9 +7,9 @@ JUMPING_ACTION = "jumping"
 RUNNING_ACTION = "running"
 DUCKING_ACTION = "ducking"
 
-DUCK_IMG = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER, HEART_TYPE:DUCKING}
-RUN_IMG = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER, HEART_TYPE:RUNNING}
-JUMP_IMG = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER, HEART_TYPE:JUMPING}
+DUCK_IMG = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
+RUN_IMG = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
+JUMP_IMG = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
 
 class Dinosaur(Sprite):
     Y_POS = 310
@@ -36,7 +36,6 @@ class Dinosaur(Sprite):
         self.rect.y = y_pos or self.Y_POS
               
     def update(self, user_input):
-        self.sound_jump(user_input)
         if self.action == RUNNING_ACTION:  
             self.run() 
         elif self.action == JUMPING_ACTION:
@@ -47,6 +46,8 @@ class Dinosaur(Sprite):
         
         if self.action != JUMPING_ACTION:
             if user_input[ pygame.K_UP]:
+                pygame.mixer.Sound.play(SOUND_JUMP)
+                pygame.mixer.Sound.set_volume( SOUND_JUMP, VOLUME)
                 self.action = JUMPING_ACTION
             elif user_input[pygame.K_DOWN]:
                 self.action = DUCKING_ACTION
@@ -61,10 +62,9 @@ class Dinosaur(Sprite):
         self.reset_rect()
         self.step += 1
         
-    def sound_jump(self, user_input):
-        if user_input[pygame.K_UP]:    
-            pygame.mixer.Sound.play(SOUND_JUMP)
-            pygame.mixer.Sound.set_volume( SOUND_JUMP, VOLUME)
+    # def sound_jump(self):   
+    #     pygame.mixer.Sound.play(SOUND_JUMP)
+    #     pygame.mixer.Sound.set_volume( SOUND_JUMP, VOLUME)
     
     def jump(self):
         
@@ -108,5 +108,5 @@ class Dinosaur(Sprite):
         
         
     def draw_life(self, screen):
-        text_draw(f"lifes  {self.lifes}",
+        text_draw(f"lifes:  {self.lifes}",
                   screen, pos_x_center=50, pos_y_center=30, font_size=20)

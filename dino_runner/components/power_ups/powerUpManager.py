@@ -1,5 +1,4 @@
 from random import randint
-
 import pygame
 from dino_runner.components.power_ups.hammer import Hammer
 from dino_runner.components.power_ups.heart import Heart
@@ -30,40 +29,27 @@ class PowerUpManager:
         for power_up in self.power_ups:
             power_up.update(game_speed, self.power_ups)
             #? Valido que el tipo de pu sea distinto al heart
-            if power_up.type == SHIELD_TYPE:
-                if power_up.rect.colliderect(player.rect):
+            if power_up.rect.colliderect(player.rect):
+                self.sound_powerup()
+                if (power_up.type == SHIELD_TYPE) or (power_up.type == HAMMER_TYPE):
                     power_up.start_time = pygame.time.get_ticks()
                     player.on_pick_power_up(power_up)
                     self.power_ups.remove(power_up)
-                    self.sound_powerup()
                     
-            elif power_up.type == HEART_TYPE:
-                if power_up.rect.colliderect(player.rect):
-                    self.power_ups.remove(power_up)
-                    self.sound_powerup()
-                    #! Atento
-                    player.lifes += 1
-            
-            elif power_up.type == HAMMER_TYPE:
-                if power_up.rect.colliderect(player.rect):
-                                        
-                    power_up.start_time = pygame.time.get_ticks()
-                    player.on_pick_power_up(power_up)
-                    self.power_ups.remove(power_up)
-                    self.sound_powerup()                 
-            
-                
-    
+                elif power_up.type == HEART_TYPE:
+                    if power_up.rect.colliderect(player.rect): #
+                        self.power_ups.remove(power_up)
+                        player.lifes += 1
+                                   
+              
     def draw(self, screen):
         for power_up in self.power_ups:
             power_up.draw(screen)
-
-        
+     
     def reset_power_ups(self):
         self.power_ups = []
         self.when_appears = randint(200, 300)
      
-
     def sound_powerup(self):
         pygame.mixer.Sound.play(SOUND_POWERUP)
         pygame.mixer.Sound.set_volume(SOUND_POWERUP, VOLUME)

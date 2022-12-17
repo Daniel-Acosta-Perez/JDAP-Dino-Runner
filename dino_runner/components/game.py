@@ -7,7 +7,7 @@ from dino_runner.components.power_ups.powerUpManager import PowerUpManager
 from dino_runner.components.score import Score
 from dino_runner.utils.constants import (BG, DINO_START, GAME_OVER, HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH, HAMMER_TYPE, 
                                          ICON, INICIAL_GAME_VELOCITY, LIFES, SCREEN_HEIGHT, 
-                                         SCREEN_WIDTH, SHIELD_TYPE, TITLE, FPS)
+                                         SCREEN_WIDTH, SHIELD_TYPE, SOUND_BREAK, TITLE, FPS, VOLUME)
 from dino_runner.utils.text_draw import text_draw
 
 class Game:
@@ -68,7 +68,7 @@ class Game:
 
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill((255, 255, 255))
+        self.screen.fill((169, 169, 169))
         self.draw_background()
         self.cloud.draw(self.screen) 
         self.player.draw(self.screen)
@@ -135,16 +135,18 @@ class Game:
         self.score.reset_score()
         self.power_up_manager.reset_power_ups()
         
-    def on_death(self):
+    def on_death(self, obstacle):
         has_shield = (self.player.type == SHIELD_TYPE) or (self.player.type == HAMMER_TYPE)
         if not has_shield:
             self.player.on_dino_dead()
             self.draw()
             self.player.lifes -= 1
             self.playing = False
+            
+        elif self.player.type == HAMMER_TYPE:
+            self.obstacle_manager.obstacles.remove(obstacle)
+            pygame.mixer.Sound.play(SOUND_BREAK)
+            pygame.mixer.Sound.set_volume(SOUND_BREAK,VOLUME)
 
         return not has_shield
-
-        
-    def hammer_colision(self):
-        pass
+    

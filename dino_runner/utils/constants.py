@@ -47,17 +47,17 @@ DUCKING = [
 
 DUCKING_SHIELD = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Shield.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2Shield.png")),
 ]
 
 RUNNING_HAMMER = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Hammer.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun1Hammer.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2Hammer1.png")),
 ]
 
 DUCKING_HAMMER = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Hammer.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2Hammer.png")),
 ]
 
 SMALL_CACTUS = [
@@ -93,8 +93,7 @@ FONT_STYLE = "dino_runner/utils/Fonts/Fixedsys500c.ttf"
 
 BUTTON_RESTART = pygame.image.load(os.path.join(IMG_DIR, "Other/Reset.png"))
 
-
-
+#? Cargando sonidos
 SOUND_DEAD = pygame.mixer.Sound(os.path.join(IMG_DIR, "sonds/resources_music_death.wav"))
 
 SOUND_POWERUP = pygame.mixer.Sound(os.path.join(IMG_DIR,"sonds/powerup.ogg"))
@@ -102,3 +101,5 @@ SOUND_POWERUP = pygame.mixer.Sound(os.path.join(IMG_DIR,"sonds/powerup.ogg"))
 SOUND_JUMP = pygame.mixer.Sound(os.path.join(IMG_DIR,"sonds/big_jump.ogg"))
 
 VOLUME = 0.1
+
+SOUND_BREAK = pygame.mixer.Sound(os.path.join(IMG_DIR,"sonds/brick_smash.ogg"))

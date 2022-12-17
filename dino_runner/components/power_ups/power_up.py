@@ -12,7 +12,7 @@ class PowerUp(Sprite):
         self.rect.y = randint(100, 200)   
         
         self. start_time = 0
-        self.duration = randint(4, 7)
+        self.duration = randint(2, 9)
         
     
     def update(self, game_speed, power_ups):
