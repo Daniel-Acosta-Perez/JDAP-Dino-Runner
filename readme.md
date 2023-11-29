@@ -45,7 +45,7 @@ A continuación, se muestran imágenes de cada power-up:
 ![Corazón](/dino_runner/assets/Other/useHeart.png)
 
 ## Instalación
-![Alt text](image.png)
+
 1. Clona el repositorio:
 
     ```bash
